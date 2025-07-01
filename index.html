@@ -1,0 +1,2134 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DELIX - Per chi ama mangiare bene. Per chi ha fame vera.</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-red: #C41E3A;
+            --warm-gold: #D4AF37;
+            --cream: #FAF6F0;
+            --dark-charcoal: #2B2B2B;
+            --soft-gray: #F8F9FA;
+            --white: #FFFFFF;
+            --black: #1A1A1A;
+            --shadow-light: rgba(0,0,0,0.1);
+            --shadow-medium: rgba(0,0,0,0.2);
+            --shadow-heavy: rgba(0,0,0,0.3);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--dark-charcoal);
+            background-color: var(--white);
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Enhanced Header */
+        header {
+            background: linear-gradient(135deg, var(--primary-red) 0%, var(--warm-gold) 100%);
+            color: white;
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 20px var(--shadow-medium);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            backdrop-filter: blur(10px);
+        }
+
+        header.scrolled {
+            padding: 0.7rem 0;
+            background: rgba(196, 30, 58, 0.95);
+            backdrop-filter: blur(15px);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            letter-spacing: 3px;
+            background: linear-gradient(45deg, #fff, var(--cream), #fff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            transition: all 0.3s ease;
+            text-shadow: 0 2px 4px var(--shadow-light);
+        }
+
+        header.scrolled .logo {
+            font-size: 2rem;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2.5rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            padding: 0.8rem 1.2rem;
+            border-radius: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-links a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 100%;
+            background: rgba(255,255,255,0.2);
+            border-radius: 30px;
+            transition: width 0.3s ease;
+            z-index: -1;
+        }
+
+        .nav-links a:hover::before {
+            width: 100%;
+        }
+
+        .nav-links a:hover {
+            transform: translateY(-2px);
+            text-shadow: 0 2px 8px var(--shadow-medium);
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            z-index: 1001;
+            padding: 0.5rem;
+        }
+
+        .hamburger span {
+            width: 28px;
+            height: 3px;
+            background: white;
+            margin: 4px 0;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border-radius: 3px;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(8px, 8px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(8px, -8px);
+        }
+
+        /* Enhanced Hero Section */
+        .hero {
+            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.6)), 
+                        url('https://images.unsplash.com/photo-1514933651103-005eec06c04b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1974&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            color: white;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(ellipse at center, transparent 0%, rgba(0,0,0,0.3) 100%);
+            animation: heroGlow 8s ease-in-out infinite alternate;
+        }
+
+        @keyframes heroGlow {
+            0% { opacity: 0.3; }
+            100% { opacity: 0.6; }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .hero-content h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 5.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            text-shadow: 2px 4px 8px var(--shadow-heavy);
+            letter-spacing: 4px;
+            background: linear-gradient(45deg, #fff, var(--warm-gold), #fff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: titleGlow 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes titleGlow {
+            0% { filter: drop-shadow(0 0 20px rgba(212, 175, 55, 0.5)); }
+            100% { filter: drop-shadow(0 0 40px rgba(212, 175, 55, 0.8)); }
+        }
+
+        .hero-content p {
+            font-size: 2rem;
+            margin-bottom: 3rem;
+            text-shadow: 1px 2px 4px var(--shadow-medium);
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            font-weight: 300;
+            letter-spacing: 1px;
+            animation: subtitleFade 2s ease-in-out;
+        }
+
+        @keyframes subtitleFade {
+            0% { opacity: 0; transform: translateY(30px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: buttonSlide 2.5s ease-out;
+        }
+
+        @keyframes buttonSlide {
+            0% { opacity: 0; transform: translateY(50px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        .btn {
+            padding: 1.2rem 3rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            text-decoration: none;
+            display: inline-block;
+            position: relative;
+            overflow: hidden;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(45deg, var(--primary-red), var(--warm-gold));
+            color: white;
+            box-shadow: 0 8px 25px rgba(196, 30, 58, 0.4);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+            box-shadow: 0 8px 25px rgba(255, 255, 255, 0.2);
+        }
+
+        .btn:hover {
+            transform: translateY(-8px) scale(1.05);
+            box-shadow: 0 15px 35px var(--shadow-heavy);
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(45deg, var(--warm-gold), var(--primary-red));
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255,255,255,0.15);
+            border-color: var(--warm-gold);
+        }
+
+        .btn::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .btn:hover::after {
+            left: 100%;
+        }
+
+        /* Floating elements */
+        .floating-element {
+            position: absolute;
+            opacity: 0.8;
+            animation: float 8s ease-in-out infinite;
+            z-index: 1;
+        }
+
+        .floating-element:nth-child(odd) {
+            animation-direction: reverse;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg) scale(1);
+            }
+            25% {
+                transform: translateY(-30px) rotate(5deg) scale(1.1);
+            }
+            50% {
+                transform: translateY(-60px) rotate(0deg) scale(1);
+            }
+            75% {
+                transform: translateY(-30px) rotate(-5deg) scale(0.9);
+            }
+        }
+
+        /* Enhanced Who We Are Section */
+        .who-we-are {
+            padding: 8rem 0;
+            background: linear-gradient(135deg, var(--cream) 0%, var(--soft-gray) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .who-we-are::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: url('https://images.unsplash.com/photo-1600891964092-4316c288032e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.05;
+            z-index: 0;
+            animation: backgroundShift 20s linear infinite;
+        }
+
+        @keyframes backgroundShift {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .who-we-are .container {
+            position: relative;
+            z-index: 1;
+        }
+
+        .section-title {
+            text-align: center;
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            color: var(--primary-red);
+            position: relative;
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--warm-gold), var(--primary-red), var(--warm-gold));
+            border-radius: 2px;
+            animation: underlineGlow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes underlineGlow {
+            0% { box-shadow: 0 0 10px var(--warm-gold); }
+            100% { box-shadow: 0 0 20px var(--primary-red); }
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.4rem;
+            max-width: 900px;
+            margin: 0 auto 4rem;
+            line-height: 1.8;
+            font-weight: 300;
+            color: var(--dark-charcoal);
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 3rem;
+            margin-top: 4rem;
+        }
+
+        .feature-card {
+            background: var(--white);
+            padding: 3rem 2.5rem;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 15px 40px var(--shadow-light);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(212, 175, 55, 0.1);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-15px) scale(1.03);
+            box-shadow: 0 25px 60px var(--shadow-medium);
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 6px;
+            background: linear-gradient(90deg, var(--primary-red), var(--warm-gold));
+            transform: scaleX(0);
+            transition: transform 0.5s ease;
+        }
+
+        .feature-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .feature-icon {
+            font-size: 4rem;
+            margin-bottom: 2rem;
+            color: var(--primary-red);
+            transition: all 0.4s ease;
+            position: relative;
+        }
+
+        .feature-card:hover .feature-icon {
+            transform: scale(1.2) rotateY(360deg);
+            color: var(--warm-gold);
+        }
+
+        .feature-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary-red);
+            font-weight: 600;
+        }
+
+        .feature-card p {
+            font-size: 1rem;
+            line-height: 1.7;
+            color: var(--dark-charcoal);
+        }
+
+        /* Enhanced Menu Section */
+        .menu-section {
+            padding: 8rem 0;
+            background: var(--white);
+            position: relative;
+        }
+
+        .menu-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(to bottom, var(--cream), transparent);
+            z-index: 0;
+        }
+
+        .menu-section .container {
+            position: relative;
+            z-index: 1;
+        }
+
+        .menu-subtitle {
+            text-align: center;
+            font-size: 1.8rem;
+            margin-bottom: 4rem;
+            color: var(--warm-gold);
+            font-weight: 500;
+            font-style: italic;
+        }
+
+        .menu-categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 3rem;
+            margin-bottom: 4rem;
+        }
+
+        .menu-category {
+            background: var(--soft-gray);
+            padding: 2.5rem;
+            border-radius: 20px;
+            border-left: 6px solid var(--primary-red);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 30px var(--shadow-light);
+        }
+
+        .menu-category:hover {
+            box-shadow: 0 20px 50px var(--shadow-medium);
+            transform: translateY(-10px) scale(1.02);
+            border-left-color: var(--warm-gold);
+        }
+
+        .menu-category::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100px;
+            height: 100px;
+            background: radial-gradient(circle, var(--warm-gold) 0%, transparent 70%);
+            opacity: 0.1;
+            transition: all 0.5s ease;
+        }
+
+        .menu-category:hover::after {
+            opacity: 0.3;
+            transform: scale(1.5);
+        }
+
+        .menu-category h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            margin-bottom: 2rem;
+            color: var(--primary-red);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-weight: 600;
+        }
+
+        .menu-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding: 1.5rem 0;
+            border-bottom: 1px dashed rgba(196, 30, 58, 0.2);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .menu-item:hover {
+            transform: translateX(10px);
+            background: rgba(212, 175, 55, 0.05);
+            padding-left: 1rem;
+            border-radius: 10px;
+        }
+
+        .menu-item:last-child {
+            border-bottom: none;
+        }
+
+        .menu-item-info {
+            flex: 1;
+        }
+
+        .menu-item-name {
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: var(--dark-charcoal);
+            margin-bottom: 0.5rem;
+        }
+
+        .menu-item-price {
+            font-weight: 700;
+            color: var(--primary-red);
+            font-size: 1.3rem;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .menu-tags {
+            display: flex;
+            gap: 0.8rem;
+            flex-wrap: wrap;
+            margin-top: 1rem;
+        }
+
+        .tag {
+            background: linear-gradient(45deg, var(--warm-gold), var(--primary-red));
+            color: white;
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px var(--shadow-light);
+        }
+
+        .tag:hover {
+            transform: scale(1.1) translateY(-2px);
+            box-shadow: 0 6px 15px var(--shadow-medium);
+        }
+
+        .special-today {
+            background: linear-gradient(135deg, var(--primary-red), var(--warm-gold));
+            color: white;
+            padding: 3.5rem;
+            border-radius: 25px;
+            text-align: center;
+            margin: 4rem 0;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(196, 30, 58, 0.3);
+        }
+
+        .special-today::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(transparent, rgba(255,255,255,0.1), transparent);
+            animation: specialRotate 20s linear infinite;
+        }
+
+        @keyframes specialRotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .special-today h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 1;
+            font-weight: 600;
+        }
+
+        .special-today p {
+            font-size: 1.4rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 1;
+            font-weight: 300;
+        }
+
+        /* Food Gallery */
+        .food-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+            margin: 4rem 0;
+        }
+
+        .gallery-item {
+            height: 250px;
+            border-radius: 15px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 10px 30px var(--shadow-light);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.08) rotateY(5deg);
+            box-shadow: 0 20px 50px var(--shadow-medium);
+            z-index: 2;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.2);
+        }
+
+        .gallery-item::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent 60%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .gallery-item:hover::after {
+            opacity: 1;
+        }
+
+        .gallery-item .caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 1.5rem;
+            color: white;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transform: translateY(100%);
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 3;
+            text-shadow: 0 2px 4px var(--shadow-heavy);
+        }
+
+        .gallery-item:hover .caption {
+            transform: translateY(0);
+        }
+
+        /* Enhanced Location Section */
+        .location-section {
+            padding: 8rem 0;
+            background: var(--dark-charcoal);
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .location-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(to bottom, var(--warm-gold), transparent);
+            opacity: 0.2;
+            z-index: 0;
+        }
+
+        .location-section .container {
+            position: relative;
+            z-index: 1;
+        }
+
+        .location-subtitle {
+            text-align: center;
+            font-size: 1.8rem;
+            margin-bottom: 4rem;
+            color: var(--warm-gold);
+            font-style: italic;
+        }
+
+        .location-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .location-info h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: var(--warm-gold);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-weight: 600;
+        }
+
+        .location-info p {
+            margin-bottom: 2rem;
+            line-height: 1.8;
+            font-size: 1.1rem;
+            font-weight: 300;
+        }
+
+        .contact-buttons {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            margin-bottom: 3rem;
+        }
+
+        .advantages {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+        }
+
+        .advantage-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-size: 1.1rem;
+            background: rgba(255,255,255,0.1);
+            padding: 1rem;
+            border-radius: 10px;
+            transition: all 0.4s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .advantage-item:hover {
+            background: rgba(255,255,255,0.2);
+            transform: translateX(10px) scale(1.05);
+        }
+
+        .advantage-item i {
+            color: var(--warm-gold);
+            font-size: 1.5rem;
+        }
+
+        .map-container {
+            height: 450px;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 50px var(--shadow-heavy);
+            position: relative;
+            transition: transform 0.5s ease;
+        }
+
+        .map-container:hover {
+            transform: scale(1.02);
+        }
+
+        .map-placeholder {
+            width: 100%;
+            height: 100%;
+            background: url('https://images.unsplash.com/photo-1569949381669-ecf31ae8e613?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+            position: relative;
+        }
+
+        .map-placeholder::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+        }
+
+        .map-content {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            padding: 2rem;
+            background: rgba(0,0,0,0.7);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+
+        /* Enhanced Testimonials */
+        .testimonials {
+            padding: 8rem 0;
+            background: linear-gradient(135deg, var(--cream) 0%, var(--soft-gray) 100%);
+            overflow: hidden;
+        }
+
+        .testimonial-slider {
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .testimonial {
+            background: var(--white);
+            padding: 3.5rem;
+            border-radius: 25px;
+            box-shadow: 0 20px 50px var(--shadow-light);
+            text-align: center;
+            margin: 0 1rem;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(212, 175, 55, 0.1);
+        }
+
+        .testimonial::before {
+            content: '"';
+            position: absolute;
+            top: 20px;
+            left: 30px;
+            font-size: 6rem;
+            color: var(--cream);
+            font-family: 'Playfair Display', serif;
+            line-height: 1;
+            opacity: 0.5;
+        }
+
+        .testimonial-content {
+            font-size: 1.3rem;
+            font-style: italic;
+            margin-bottom: 2rem;
+            position: relative;
+            z-index: 1;
+            line-height: 1.7;
+            color: var(--dark-charcoal);
+        }
+
+        .testimonial-author {
+            font-weight: 600;
+            color: var(--primary-red);
+            margin-top: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .testimonial-author img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--warm-gold);
+            box-shadow: 0 4px 15px var(--shadow-light);
+        }
+
+        /* Enhanced Newsletter */
+        .newsletter {
+            padding: 6rem 0;
+            background: linear-gradient(135deg, var(--primary-red), var(--warm-gold));
+            color: white;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .newsletter::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="white" opacity="0.1"/><circle cx="75" cy="75" r="1" fill="white" opacity="0.1"/><circle cx="50" cy="10" r="1" fill="white" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+            opacity: 0.3;
+        }
+
+        .newsletter h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+            position: relative;
+            z-index: 1;
+        }
+
+        .newsletter p {
+            max-width: 700px;
+            margin: 0 auto 3rem;
+            font-size: 1.2rem;
+            position: relative;
+            z-index: 1;
+            font-weight: 300;
+        }
+
+        .newsletter-form {
+            display: flex;
+            max-width: 550px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+            box-shadow: 0 15px 40px var(--shadow-heavy);
+            border-radius: 60px;
+            overflow: hidden;
+        }
+
+        .newsletter-input {
+            flex: 1;
+            padding: 1.2rem 2rem;
+            border: none;
+            font-size: 1.1rem;
+            outline: none;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(10px);
+        }
+
+        .newsletter-btn {
+            padding: 1.2rem 2.5rem;
+            background: var(--dark-charcoal);
+            color: white;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .newsletter-btn:hover {
+            background: var(--black);
+            transform: scale(1.05);
+        }
+
+        /* Enhanced WhatsApp Button */
+        .whatsapp-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: linear-gradient(45deg, #25D366, #20B358);
+            color: white;
+            width: 75px;
+            height: 75px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.2rem;
+            text-decoration: none;
+            box-shadow: 0 8px 30px rgba(37, 211, 102, 0.5);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 1000;
+            animation: whatsappPulse 3s infinite;
+        }
+
+        @keyframes whatsappPulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7);
+            }
+            70% {
+                box-shadow: 0 0 0 20px rgba(37, 211, 102, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(37, 211, 102, 0);
+            }
+        }
+
+        .whatsapp-btn:hover {
+            transform: scale(1.15);
+            animation: none;
+            box-shadow: 0 12px 40px rgba(37, 211, 102, 0.6);
+        }
+
+        /* Enhanced Footer */
+        footer {
+            background: linear-gradient(135deg, var(--black), var(--dark-charcoal));
+            color: white;
+            padding: 6rem 0 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary-red), var(--warm-gold), var(--primary-red));
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 3rem;
+            margin-bottom: 4rem;
+            text-align: left;
+        }
+
+        .footer-column h3 {
+            font-family: 'Playfair Display', serif;
+            color: var(--warm-gold);
+            margin-bottom: 1.5rem;
+            font-size: 1.4rem;
+            position: relative;
+            padding-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary-red), var(--warm-gold));
+            border-radius: 2px;
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column li {
+            margin-bottom: 1rem;
+        }
+
+        .footer-column a {
+            color: #ccc;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-block;
+            font-weight: 300;
+        }
+
+        .footer-column a:hover {
+            color: var(--warm-gold);
+            transform: translateX(8px);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(45deg, var(--primary-red), var(--warm-gold));
+            border-radius: 50%;
+            transition: all 0.4s ease;
+            box-shadow: 0 4px 15px var(--shadow-light);
+        }
+
+        .social-links a:hover {
+            transform: translateY(-5px) scale(1.1);
+            box-shadow: 0 8px 25px var(--shadow-medium);
+        }
+
+        .copyright {
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: #999;
+            font-size: 0.9rem;
+            font-weight: 300;
+        }
+
+        /* Enhanced Back to Top Button */
+        .back-to-top {
+            position: fixed;
+            bottom: 120px;
+            right: 30px;
+            background: linear-gradient(45deg, var(--primary-red), var(--warm-gold));
+            color: white;
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            text-decoration: none;
+            box-shadow: 0 4px 20px var(--shadow-medium);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .back-to-top.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            background: linear-gradient(45deg, var(--warm-gold), var(--primary-red));
+            transform: translateY(-5px) scale(1.1);
+            box-shadow: 0 8px 30px var(--shadow-heavy);
+        }
+
+        /* Enhanced Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Loading Animation */
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--primary-red), var(--warm-gold));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            opacity: 1;
+            transition: opacity 0.5s ease;
+        }
+
+        .loading-overlay.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .loader {
+            width: 80px;
+            height: 80px;
+            border: 8px solid rgba(255,255,255,0.3);
+            border-left: 8px solid white;
+            border-radius: 50%;
+            animation: loaderSpin 1s linear infinite;
+        }
+
+        @keyframes loaderSpin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Enhanced Mobile Responsive */
+        @media (max-width: 992px) {
+            .hero-content h1 {
+                font-size: 4rem;
+            }
+            
+            .hero-content p {
+                font-size: 1.6rem;
+            }
+            
+            .location-content {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+            
+            .map-container {
+                height: 350px;
+            }
+
+            .section-title {
+                font-size: 3rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100vh;
+                background: linear-gradient(135deg, var(--primary-red), var(--warm-gold));
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                gap: 3rem;
+                transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+                transform: translateY(-100%);
+                z-index: 1000;
+                backdrop-filter: blur(20px);
+            }
+
+            .nav-links.active {
+                transform: translateY(0);
+                display: flex;
+            }
+
+            .nav-links a {
+                font-size: 1.2rem;
+                padding: 1rem 2rem;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .hero-content h1 {
+                font-size: 3.2rem;
+            }
+
+            .hero-content p {
+                font-size: 1.4rem;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+                gap: 1.5rem;
+            }
+
+            .advantages {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-buttons {
+                flex-direction: column;
+            }
+            
+            .newsletter-form {
+                flex-direction: column;
+                border-radius: 20px;
+            }
+            
+            .newsletter-input {
+                border-radius: 20px 20px 0 0;
+                margin-bottom: 0;
+            }
+            
+            .newsletter-btn {
+                border-radius: 0 0 20px 20px;
+            }
+
+            .section-title {
+                font-size: 2.5rem;
+            }
+
+            .features {
+                grid-template-columns: 1fr;
+            }
+
+            .menu-categories {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .container {
+                padding: 0 15px;
+            }
+
+            .hero-content h1 {
+                font-size: 2.5rem;
+                letter-spacing: 2px;
+            }
+            
+            .hero-content p {
+                font-size: 1.2rem;
+            }
+
+            .btn {
+                padding: 1rem 2rem;
+                font-size: 1rem;
+            }
+            
+            .section-title {
+                font-size: 2.2rem;
+            }
+            
+            .feature-card {
+                padding: 2rem 1.5rem;
+            }
+            
+            .special-today {
+                padding: 2rem;
+            }
+            
+            .special-today h3 {
+                font-size: 2rem;
+            }
+            
+            .special-today p {
+                font-size: 1.2rem;
+            }
+
+            .whatsapp-btn {
+                width: 65px;
+                height: 65px;
+                font-size: 2rem;
+            }
+
+            .back-to-top {
+                width: 50px;
+                height: 50px;
+                bottom: 100px;
+            }
+        }
+
+        /* Accessibility improvements */
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        /* High contrast mode */
+        @media (prefers-contrast: high) {
+            :root {
+                --primary-red: #FF0000;
+                --warm-gold: #FFD700;
+                --dark-charcoal: #000000;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loader"></div>
+    </div>
+
+    <!-- Header -->
+    <header id="header">
+        <nav class="container">
+            <div class="logo">DELIX</div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#menu">Menu</a></li>
+                <li><a href="#gallery">Gallery</a></li>
+                <li><a href="#location">Dove Siamo</a></li>
+                <li><a href="tel:+39123456789">📞 Chiama</a></li>
+            </ul>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <!-- Floating food elements -->
+        <div class="floating-element" style="top: 15%; left: 8%; font-size: 4rem;">🍝</div>
+        <div class="floating-element" style="top: 25%; left: 85%; font-size: 3.5rem;">🍕</div>
+        <div class="floating-element" style="top: 65%; left: 10%; font-size: 3rem;">🥩</div>
+        <div class="floating-element" style="top: 75%; left: 80%; font-size: 4.5rem;">🍷</div>
+        <div class="floating-element" style="top: 40%; left: 90%; font-size: 2.5rem;">🧄</div>
+        <div class="floating-element" style="top: 80%; left: 5%; font-size: 3rem;">🌿</div>
+        
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="animate__animated animate__fadeInDown">DELIX</h1>
+                <p class="animate__animated animate__fadeIn animate__delay-1s">Per chi ama mangiare bene. Per chi ha fame vera.</p>
+                <div class="hero-buttons animate__animated animate__fadeInUp animate__delay-1s">
+                    <a href="#menu" class="btn btn-primary">Scopri il Menu</a>
+                    <a href="#location" class="btn btn-secondary">Vieni a Trovarci</a>
+                    <a href="tel:+39123456789" class="btn btn-primary">Prenota Ora</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Who We Are Section -->
+    <section class="who-we-are">
+        <div class="container">
+            <h2 class="section-title animate__animated animate__fadeIn">Ricarica le energie. Ogni giorno.</h2>
+            <p class="section-subtitle animate__animated animate__fadeIn animate__delay-1s">Ogni giorno accogliamo studenti, famiglie, viaggiatori e chi lavora duro. A tutti serviamo la stessa cosa: gusto vero, senza compromessi.</p>
+            
+            <div class="features">
+                <div class="feature-card fade-in">
+                    <div class="feature-icon"><i class="fas fa-hard-hat"></i></div>
+                    <h3>Pausa lavoro?</h3>
+                    <p>Mangia in 30 minuti. Servizio veloce e piatti pronti per chi ha poco tempo ma non vuole rinunciare al gusto autentico della tradizione italiana.</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon"><i class="fas fa-truck"></i></div>
+                    <h3>Spazio per tutti</h3>
+                    <p>Ampio parcheggio anche per camion e furgoni. Pensato per chi viaggia e lavora sulla strada, con aree dedicate per ogni tipo di veicolo.</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon"><i class="fas fa-utensils"></i></div>
+                    <h3>Cucina genuina</h3>
+                    <p>Piatti abbondanti, sani e con ingredienti freschi selezionati. Menu che cambia ogni giorno per offrirti sempre novità e sapori di stagione.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Menu Section -->
+    <section id="menu" class="menu-section">
+        <div class="container">
+            <h2 class="section-title animate__animated animate__fadeIn">Menu</h2>
+            <p class="menu-subtitle animate__animated animate__fadeIn animate__delay-1s">Tanta roba. Tutti i giorni.</p>
+
+            <div class="special-today fade-in">
+                <h3>🔥 Il più scelto oggi</h3>
+                <p><strong>Pasta al ragù della nonna con parmigiano 24 mesi</strong> - €12.50</p>
+                <div class="menu-tags">
+                    <span class="tag">💪 energetico</span>
+                    <span class="tag">🔥 carico</span>
+                </div>
+            </div>
+
+            <div class="menu-categories">
+                <div class="menu-category fade-in">
+                    <h3><i class="fas fa-utensils"></i> Primi Piatti</h3>
+                    <div class="menu-item">
+                        <div class="menu-item-info">
+                            <div class="menu-item-name">Spaghetti Carbonara</div>
+                            <div class="menu-tags">
+                                <span class="tag">💪 energetico</span>
+                            </div>
+                        </div>
+                        <div class="menu-item-price">€11.00</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-info">
+                            <div class="menu-item-name">Risotto ai funghi porcini</div>
+                            <div class="menu-tags">
+                                <span class="tag">🥦 sano</span>
+                            </div>
+                        </div>
+                        <div class="menu-item-price">€13.50</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-info">
+                            <div class="menu-item-name">Pasta e fagioli</div>
+                            <div class="menu-tags">
+                                <span class="tag">🥦 sano</span>
+                                <span class="tag">🕒 veloce</span>
+                            </div>
+                        </div>
+                        <div class="menu-item-price">€9.50</div>
+                    </div>
+                </div>
+
+                <div class="menu-category fade-in">
+                    <h3><i class="fas fa-drumstick-bite"></i> Secondi + Contorni</h3>
+                    <div class="menu-item">
+                        <div class="menu-item-info">
+                            <div class="menu-item-name">Bistecca ai ferri con contorno</div>
+                            <div class="menu-tags">
+                                <span class="tag">💪 energetico</span>
+                                <span class="tag">🔥 carico</span>
+                            </div>
+                        </div>
+                        <div class="menu-item-price">€18.00</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-info">
+                            <div class="menu-item-name">Pollo alla griglia con verdure</div>
+                            <div class="menu-tags">
+                                <span class="tag">🥦 sano</span>
+                                <span class="tag">🕒 veloce</span>
+                            </div>
+                        </div>
+                        <div class="menu-item-price">€14.00</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-info">
+                            <div class="menu-item-name">Salsicce e patate al forno</div>
+                            <div class="menu-tags">
+                                <span class="tag">🔥 carico</span>
+                            </div>
+                        </div>
+                        <div class="menu-item-price">€12.50</div>
+                    </div>
+                </div>
+
+                <div class="menu-category fade-in">
+                    <h3><i class="fas fa-plate-wheat"></i> Piatti Unici</h3>
+                    <div class="menu-item">
+                        <div class="menu-item-info">
+                            <div class="menu-item-name">Piatto del camionista</div>
+                            <div class="menu-tags">
+                                <span class="tag">💪 energetico</span>
+                                <span class="tag">🔥 carico</span>
+                            </div>
+                        </div>
+                        <div class="menu-item-price">€16.50</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-info">
+                            <div class="menu-item-name">Insalata completa</div>
+                            <div class="menu-tags">
+                                <span class="tag">🥦 sano</span>
+                                <span class="tag">🕒 veloce</span>
+                            </div>
+                        </div>
+                        <div class="menu-item-price">€10.00</div>
+                    </div>
+                </div>
+
+                <div class="menu-category fade-in">
+                    <h3><i class="fas fa-burger"></i> Panini & Wrap XXL</h3>
+                    <div class="menu-item">
+                        <div class="menu-item-info">
+                            <div class="menu-item-name">Panino della casa XXL</div>
+                            <div class="menu-tags">
+                                <span class="tag">🔥 carico</span>
+                                <span class="tag">🕒 veloce</span>
+                            </div>
+                        </div>
+                        <div class="menu-item-price">€8.50</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-info">
+                            <div class="menu-item-name">Wrap vegano</div>
+                            <div class="menu-tags">
+                                <span class="tag">🥦 sano</span>
+                            </div>
+                        </div>
+                        <div class="menu-item-price">€7.50</div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 3rem;">
+                <a href="#" class="btn btn-primary animate__animated animate__pulse animate__infinite animate__slower">📋 Menu completo (PDF)</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Food Gallery -->
+    <section id="gallery" class="menu-section" style="padding-top: 0;">
+        <div class="container">
+            <h2 class="section-title animate__animated animate__fadeIn">La Nostra Cucina</h2>
+            <p class="menu-subtitle animate__animated animate__fadeIn animate__delay-1s">Gusto autentico in ogni piatto</p>
+            
+            <div class="food-gallery">
+                <div class="gallery-item fade-in">
+                    <img src="https://images.unsplash.com/photo-1621996346565-e3dbc353d2e5?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80" alt="Pasta carbonara">
+                    <div class="caption">Pasta fresca fatta in casa</div>
+                </div>
+                <div class="gallery-item fade-in">
+                    <img src="https://images.unsplash.com/photo-1558030006-450675393462?ixlib=rb-4.0.3&auto=format&fit=crop&w=1631&q=80" alt="Bistecca alla griglia">
+                    <div class="caption">Carni di alta qualità</div>
+                </div>
+                <div class="gallery-item fade-in">
+                    <img src="https://images.unsplash.com/photo-1540420773420-3366772f4999?ixlib=rb-4.0.3&auto=format&fit=crop&w=1484&q=80" alt="Insalata fresca">
+                    <div class="caption">Ingredienti freschi</div>
+                </div>
+                <div class="gallery-item fade-in">
+                    <img src="https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?ixlib=rb-4.0.3&auto=format&fit=crop&w=1480&q=80" alt="Tiramisù">
+                    <div class="caption">Dolci fatti in casa</div>
+                </div>
+                <div class="gallery-item fade-in">
+                    <img src="https://images.unsplash.com/photo-1574071318508-1cdbab80d002?ixlib=rb-4.0.3&auto=format&fit=crop&w=1469&q=80" alt="Pizza napoletana">
+                    <div class="caption">Pizza croccante</div>
+                </div>
+                <div class="gallery-item fade-in">
+                    <img src="https://images.unsplash.com/photo-1577219491135-ce391730fb2c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1477&q=80" alt="Chef al lavoro">
+                    <div class="caption">Passione in cucina</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonials">
+        <div class="container">
+            <h2 class="section-title">Cosa Dicono di Noi</h2>
+            
+            <div class="testimonial-slider">
+                <div class="testimonial fade-in">
+                    <div class="testimonial-content">
+                        "Ho mangiato qui durante una pausa lavoro e sono rimasto impressionato dalla qualità e dalla velocità del servizio. La carbonara è semplicemente perfetta!"
+                    </div>
+                    <div class="testimonial-author">
+                        <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80" alt="Marco Rossi">
+                        <span>Marco Rossi, Camionista</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Location Section -->
+    <section id="location" class="location-section">
+        <div class="container">
+            <h2 class="section-title animate__animated animate__fadeIn">Dove Siamo</h2>
+            <p class="location-subtitle animate__animated animate__fadeIn animate__delay-1s">Ti aspettiamo con il motore ancora caldo.</p>
+            
+            <div class="location-content">
+                <div class="location-info fade-in">
+                    <h3><i class="fas fa-map-marker-alt"></i> Facile da raggiungere</h3>
+                    <p>A 2 minuti dall'uscita autostradale. Ampio parcheggio, anche per mezzi grandi. Siamo qui ogni giorno, a servire chi ha fame e fretta.</p>
+                    
+                    <div class="contact-buttons">
+                        <a href="https://maps.google.com" class="btn btn-primary"><i class="fas fa-map-marked-alt"></i> Naviga con Google Maps</a>
+                        <a href="tel:+39123456789" class="btn btn-secondary"><i class="fas fa-phone"></i> Chiama subito</a>
+                        <a href="https://wa.me/39123456789" class="btn btn-primary"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+                    </div>
+
+                    <h3><i class="far fa-clock"></i> Orari</h3>
+                    <p><strong>Lunedì - Venerdì:</strong> 6:00 - 15:00, 18:00 - 22:00<br>
+                    <strong>Sabato:</strong> 6:00 - 22:00<br>
+                    <strong>Domenica:</strong> 8:00 - 15:00</p>
+
+                    <div class="advantages">
+                        <div class="advantage-item">
+                            <i class="fas fa-parking"></i>
+                            <span>Parcheggio facile</span>
+                        </div>
+                        <div class="advantage-item">
+                            <i class="fas fa-bolt"></i>
+                            <span>Servizio rapido</span>
+                        </div>
+                        <div class="advantage-item">
+                            <i class="fas fa-mobile-alt"></i>
+                            <span>Take-away su prenotazione</span>
+                        </div>
+                        <div class="advantage-item">
+                            <i class="fas fa-truck"></i>
+                            <span>Spazio per mezzi grandi</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="map-container fade-in">
+                    <div class="map-placeholder">
+                        <div class="map-content">
+                            <h3><i class="fas fa-map-pin"></i> DELIX Ristorante</h3>
+                            <p>Via del Gusto, 123<br>40100 Bologna BO</p>
+                            <a href="https://maps.google.com" class="btn btn-primary" style="margin-top: 1rem;">Apri Mappa</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter -->
+    <section class="newsletter">
+        <div class="container">
+            <h2 class="animate__animated animate__fadeIn">Rimani Aggiornato</h2>
+            <p class="animate__animated animate__fadeIn animate__delay-1s">Iscriviti alla nostra newsletter per ricevere promozioni e novità dal menu</p>
+            
+            <form class="newsletter-form fade-in">
+                <input type="email" class="newsletter-input" placeholder="La tua email" required>
+                <button type="submit" class="newsletter-btn">Iscriviti</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>DELIX</h3>
+                    <p>Per chi ama mangiare bene. Per chi ha fame vera. Dal 1985 serviamo autenticità italiana con passione e qualità.</p>
+                    <div class="social-links">
+                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="TripAdvisor"><i class="fab fa-tripadvisor"></i></a>
+                        <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Link Veloci</h3>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#menu">Menu Completo</a></li>
+                        <li><a href="#gallery">Galleria Foto</a></li>
+                        <li><a href="#location">Come Raggiungerci</a></li>
+                        <li><a href="#" onclick="openReservations()">Prenota Tavolo</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contatti</h3>
+                    <ul>
+                        <li><i class="fas fa-map-marker-alt"></i> Via del Gusto, 123, 40100 Bologna BO</li>
+                        <li><i class="fas fa-phone"></i> <a href="tel:+39123456789">+39 123 456 789</a></li>
+                        <li><i class="fas fa-envelope"></i> <a href="mailto:info@delixristorante.it">info@delixristorante.it</a></li>
+                        <li><i class="fas fa-globe"></i> www.delixristorante.it</li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Orari di Apertura</h3>
+                    <ul>
+                        <li><strong>Lunedì - Venerdì</strong><br>6:00 - 15:00, 18:00 - 22:00</li>
+                        <li><strong>Sabato</strong><br>6:00 - 22:00</li>
+                        <li><strong>Domenica</strong><br>8:00 - 15:00</li>
+                        <li style="margin-top: 1rem; color: var(--warm-gold);"><i class="fas fa-info-circle"></i> Chiusi il 25 Dicembre e 1 Gennaio</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                &copy; 2024 DELIX Ristorante. Tutti i diritti riservati. | P.IVA: 12345678901 | 
+                <a href="#" style="color: var(--warm-gold);">Privacy Policy</a> | 
+                <a href="#" style="color: var(--warm-gold);">Cookie Policy</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- WhatsApp Button -->
+    <a href="https://wa.me/39123456789?text=Ciao!%20Vorrei%20prenotare%20un%20tavolo" class="whatsapp-btn" title="Scrivici su WhatsApp" aria-label="Contattaci su WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- Back to Top Button -->
+    <a href="#home" class="back-to-top" title="Torna su" aria-label="Torna all'inizio della pagina">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+
+    <script>
+        // Loading screen
+        window.addEventListener('load', function() {
+            const loadingOverlay = document.getElementById('loadingOverlay');
+            setTimeout(() => {
+                loadingOverlay.classList.add('hidden');
+            }, 1500);
+        });
+
+        // Mobile menu toggle with enhanced animation
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.getElementById('navLinks');
+        const body = document.body;
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navLinks.classList.toggle('active');
+            body.style.overflow = navLinks.classList.contains('active') ? 'hidden' : 'auto';
+        });
+
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                navLinks.classList.remove('active');
+                body.style.overflow = 'auto';
+            });
+        });
+
+        // Enhanced header scroll effect
+        let lastScrollY = window.scrollY;
+        
+        window.addEventListener('scroll', function() {
+            const header = document.getElementById('header');
+            const currentScrollY = window.scrollY;
+            
+            if (currentScrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+            
+            // Hide header when scrolling down, show when scrolling up
+            if (currentScrollY > lastScrollY && currentScrollY > 100) {
+                header.style.transform = 'translateY(-100%)';
+            } else {
+                header.style.transform = 'translateY(0)';
+            }
+            
+            lastScrollY = currentScrollY;
+        });
+
+        // Enhanced smooth scrolling with offset for fixed header
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    const headerHeight = document.getElementById('header').offsetHeight;
+                    const targetPosition = target.offsetTop - headerHeight;
+                    
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Enhanced intersection observer for fade-in animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => {
+                        entry.target.classList.add('visible');
+                    }, index * 100); // Stagger the animations
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Enhanced back to top button
+        const backToTopButton = document.querySelector('.back-to-top');
+        
+        window.addEventListener('scroll', function() {
+            if (window.pageYOffset > 500) {
+                backToTopButton.classList.add('active');
+            } else {
+                backToTopButton.classList.remove('active');
+            }
+        });
+
+        // Dynamic menu special update with enhanced animation
+        const specials = [
+            {
+                name: "Pasta al ragù della nonna con parmigiano 24 mesi",
+                price: "€12.50",
+                tags: ["💪 energetico", "🔥 carico"]
+            },
+            {
+                name: "Risotto ai porcini con salsiccia e tartufo",
+                price: "€16.00",
+                tags: ["🔥 carico", "🌟 gourmet"]
+            },
+            {
+                name: "Cotoletta alla milanese XXL con patate arrosto",
+                price: "€15.50",
+                tags: ["💪 energetico", "🔥 carico"]
+            },
+            {
+                name: "Tagliata di manzo con rucola, grana e balsamico",
+                price: "€19.00",
+                tags: ["💪 energetico", "🌟 gourmet"]
+            },
+            {
+                name: "Lasagne della casa con besciamella al tartufo",
+                price: "€14.00",
+                tags: ["🔥 carico", "🌟 gourmet"]
+            }
+        ];
+        
+        function updateSpecialToday() {
+            const randomSpecial = specials[Math.floor(Math.random() * specials.length)];
+            const specialSection = document.querySelector('.special-today');
+            const specialText = specialSection.querySelector('p');
+            const tagsSection = specialSection.querySelector('.menu-tags');
+            
+            if (specialText && tagsSection) {
+                // Add fade out effect
+                specialSection.style.opacity = '0.5';
+                specialSection.style.transform = 'scale(0.95)';
+                
+                setTimeout(() => {
+                    specialText.innerHTML = `<strong>${randomSpecial.name}</strong> - ${randomSpecial.price}`;
+                    tagsSection.innerHTML = randomSpecial.tags.map(tag => `<span class="tag">${tag}</span>`).join('');
+                    
+                    // Fade back in
+                    specialSection.style.opacity = '1';
+                    specialSection.style.transform = 'scale(1)';
+                }, 300);
+            }
+        }
+
+        // Update special every 45 seconds
+        setInterval(updateSpecialToday, 45000);
+
+        // Enhanced testimonial slider
+        let currentTestimonial = 0;
+        const testimonials = [
+            {
+                content: "Ho mangiato qui durante una pausa lavoro e sono rimasto impressionato dalla qualità e dalla velocità del servizio. La carbonara è semplicemente perfetta!",
+                author: "Marco Rossi",
+                role: "Camionista",
+                image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80"
+            },
+            {
+                content: "Il miglior ristorante sulla strada! Piatti abbondanti e genuini, proprio come li prepara la mamma. Ci fermo sempre quando sono di passaggio. Staff gentilissimo!",
+                author: "Luigi Bianchi",
+                role: "Rappresentante",
+                image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80"
+            },
+            {
+                content: "Posto perfetto per famiglie. Menù vario e adatto a tutti, anche ai bambini. Il personale è gentilissimo e il cibo squisito! Prezzi onesti e porzioni generose.",
+                author: "Anna Verdi",
+                role: "Famiglia",
+                image: "https://images.unsplash.com/photo-1494790108755-2616b612b786?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80"
+            },
+            {
+                content: "Vengo qui da studente universitario e devo dire che è il posto ideale per un pasto completo senza spendere troppo. Atmosfera accogliente e cibo delizioso!",
+                author: "Francesco Neri",
+                role: "Studente",
+                image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80"
+            }
+        ];
+
+        function changeTestimonial() {
+            currentTestimonial = (currentTestimonial + 1) % testimonials.length;
+            const testimonial = testimonials[currentTestimonial];
+            const testimonialElement = document.querySelector('.testimonial');
+            
+            testimonialElement.style.opacity = '0';
+            testimonialElement.style.transform = 'translateY(30px)';
+            
+            setTimeout(() => {
+                testimonialElement.innerHTML = `
+                    <div class="testimonial-content">
+                        "${testimonial.content}"
+                    </div>
+                    <div class="testimonial-author">
+                        <img src="${testimonial.image}" alt="${testimonial.author}" loading="lazy">
+                        <span>${testimonial.author}, ${testimonial.role}</span>
+                    </div>
+                `;
+                testimonialElement.style.opacity = '1';
+                testimonialElement.style.transform = 'translateY(0)';
+            }, 400);
+        }
+
+        // Change testimonial every 6 seconds
+        setInterval(changeTestimonial, 6000);
+
+        // Enhanced button hover effects
+        document.querySelectorAll('.btn').forEach(btn => {
+            btn.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-8px) scale(1.05)';
+            });
+            
+            btn.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+
+        // Newsletter form submission
+        document.querySelector('.newsletter-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = this.querySelector('.newsletter-input').value;
+            const button = this.querySelector('.newsletter-btn');
+            const originalText = button.textContent;
+            
+            // Simulate form submission
+            button.textContent = 'Iscrizione...';
+            button.disabled = true;
+            
+            setTimeout(() => {
+                button.textContent = '✓ Iscritto!';
+                button.style.background = '#28a745';
+                
+                setTimeout(() => {
+                    button.textContent = originalText;
+                    button.disabled = false;
+                    button.style.background = '';
+                    this.querySelector('.newsletter-input').value = '';
+                }, 2000);
+            }, 1500);
+        });
+
+        // Enhanced floating elements animation
+        document.querySelectorAll('.floating-element').forEach((element, index) => {
+            element.style.animationDelay = `${index * 0.5}s`;
+            element.style.animationDuration = `${8 + (index % 3)}s`;
+        });
+
+        // Parallax effect for hero section
+        window.addEventListener('scroll', function() {
+            const scrolled = window.pageYOffset;
+            const parallax = document.querySelector('.hero');
+            if (parallax) {
+                const speed = scrolled * 0.5;
+                parallax.style.backgroundPosition = `center ${speed}px`;
+            }
+        });
+
+        // Function for reservation modal (placeholder)
+        function openReservations() {
+            alert('Funzione di prenotazione in arrivo! Per ora chiamaci al +39 123 456 789 o scrivici su WhatsApp.');
+        }
+
+        // Add click sound effect (optional)
+        document.querySelectorAll('.btn, .menu-item, .feature-card').forEach(element => {
+            element.addEventListener('click', function() {
+                // Optional: Add subtle click feedback
+                this.style.transform = 'scale(0.98)';
+                setTimeout(() => {
+                    this.style.transform = '';
+                }, 100);
+            });
+        });
+
+        // Accessibility improvements
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && navLinks.classList.contains('active')) {
+                hamburger.classList.remove('active');
+                navLinks.classList.remove('active');
+                body.style.overflow = 'auto';
+            }
+        });
+
+        // Performance optimization - lazy loading for images
+        if ('IntersectionObserver' in window) {
+            const imageObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const img = entry.target;
+                        img.src = img.dataset.src;
+                        img.classList.remove('lazy');
+                        imageObserver.unobserve(img);
+                    }
+                });
+            });
+
+            document.querySelectorAll('img[data-src]').forEach(img => {
+                imageObserver.observe(img);
+            });
+        }
+
+        // Console easter egg
+        console.log(`
+        🍝 DELIX Restaurant Website 
+        ========================
+        Built with love and pasta!
+        Contact us: info@delixristorante.it
+        `);
+    </script>
+</body>
+</html>
